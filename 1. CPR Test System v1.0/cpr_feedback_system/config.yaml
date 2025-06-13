@@ -1,0 +1,92 @@
+serial: # Input serial (measurement of position and depth)
+  port: "COM6" 
+  baud_rate: 115200
+  mock_mode: false  # Set to true when not connected to arduino with real hardware
+
+logging:
+  enabled: true
+
+matrix:
+  rows: 12
+  cols: 12
+  pressure_threshold: 150  # Ignore values below this
+  smoothing_alpha: 0.9
+  hold_cop_time: 5
+  use_structured_patch: true
+
+target:
+  mode: "fixed"  # Options: "fixed", "random", "function"
+  # The following defined points are used if mode is "fixed"
+  fixed_point_t1: [5, 5] # Number 1 between nipples (AHA)
+  fixed_point_t2: [5, 7] # Number 2 Left of Sternum
+  fixed_point_t3: [2, 9] # Number 3 High Lateral
+  fixed_point_t4: [6, 10] # Number 4 Low Lateral
+  fixed_point_t5: [7, 5] # Number 5 Epigastric (lower middle)
+  fixed_point_t6: [5, 3] # Number 6 Right of Sternum
+
+  random_bounds_y: [2, 10]  # Only used if mode is "random"
+  random_bounds_x: [2, 10]  # Only used if mode is "random"
+
+depth_sensor:
+  enabled: true
+  target_range_1: [40, 50]
+  target_range_2: [33, 40]
+  target_to_range_map:
+    t1: target_range_1
+    t2: target_range_1
+    t3: target_range_2
+    t4: target_range_2
+    t5: target_range_1
+    t6: target_range_2
+
+
+app_mode: "feedback"  # options: "feedback", "plot_depth" or "plot_position"
+
+feedback:
+  focus: "position"  # options: position, depth, both
+  mode: "box"  # options: audio, box, glove, belt, screen
+  target: "t1"   # options: t1, t2, t3, t4, t5, t6
+
+  audio:
+    sound_directory: "cpr_feedback_system/assets/sounds"
+    cooldown: 3.0
+    error_threshold: 1.0
+    volume: 0.8
+    channel_map:
+      position: 1
+      depth:    2
+    sounds:
+      left:    "left.mp3"
+      right:   "right.mp3"
+      up:      "up.mp3"
+      down:    "down.mp3"
+      harder:  "harder.mp3"
+      weaker:  "weaker.mp3"
+
+  belt:
+    port: "COM15"
+    baud_rate: 115200
+    cooldown: 1.0
+    error_threshold: 1.0
+    pulse_duration: 0.5
+    vibration_intensity: 5
+  
+  box:
+    port: "COM11"
+    cooldown: 0.5
+    hold_time: 0.5
+    baud_rate: 115200
+    error_threshold: 1
+    led_brightness: 255
+
+  glove:
+    port: "COM14"
+    baud_rate: 115200
+    cooldown: 1.0
+    error_threshold: 1.0
+    pulse_duration: 0.5
+    vibration_intensity: 5
+
+  screen:
+    scaling_position: 1
+    scaling_depth: 0.5

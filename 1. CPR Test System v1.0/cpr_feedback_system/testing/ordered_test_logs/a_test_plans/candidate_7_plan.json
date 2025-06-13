@@ -1,0 +1,30 @@
+{
+  "participant_id": 7,
+  "trials": [
+    {
+      "trial": 1,
+      "prototype": "glove",
+      "target": "t4"
+    },
+    {
+      "trial": 2,
+      "prototype": "belt",
+      "target": "t6"
+    },
+    {
+      "trial": 3,
+      "prototype": "box",
+      "target": "t2"
+    },
+    {
+      "trial": 4,
+      "prototype": "screen",
+      "target": "t1"
+    },
+    {
+      "trial": 5,
+      "prototype": "audio",
+      "target": "t3"
+    }
+  ]
+}
